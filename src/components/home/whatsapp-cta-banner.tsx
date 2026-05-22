@@ -3,28 +3,24 @@ import { BlobShape } from "./visuals";
 
 export function WhatsAppCtaBanner() {
   return (
-    <section id="whatsapp" className="relative overflow-hidden">
-      {/* Background */}
-      <div
-        className="absolute inset-0 -z-10"
-        style={{
-          background: "linear-gradient(135deg, #18111f 0%, #2b1740 45%, #4c1d95 100%)",
-        }}
-        aria-hidden="true"
-      />
+    <section
+      id="whatsapp"
+      className="relative overflow-hidden"
+      style={{ background: "linear-gradient(135deg, #18111f 0%, #2A1A42 45%, #3D2462 100%)" }}
+    >
       <BlobShape
-        className="absolute -right-24 -top-32 -z-10 h-[460px] w-[460px]"
+        className="absolute -right-24 -top-32 z-0 h-[460px] w-[460px]"
         color="#a855f7"
         opacity={0.16}
       />
       <BlobShape
-        className="absolute -bottom-32 -left-32 -z-10 h-[420px] w-[420px]"
+        className="absolute -bottom-32 -left-32 z-0 h-[420px] w-[420px]"
         color="#25D366"
         opacity={0.1}
       />
-      <div className="hero-pattern absolute inset-0 -z-10 opacity-40" aria-hidden="true" />
+      <div className="hero-pattern absolute inset-0 z-0 opacity-30" aria-hidden="true" />
 
-      <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-20 text-white sm:px-6 md:grid-cols-[auto_1fr] md:py-24 lg:px-8">
+      <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-10 px-4 py-20 text-white sm:px-6 md:grid-cols-[auto_1fr] md:py-24 lg:px-8">
         {/* WhatsApp icon */}
         <div className="relative grid place-items-center">
           <span

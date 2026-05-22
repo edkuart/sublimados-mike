@@ -1,6 +1,20 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { AuthForm } from "@/features/auth/auth-form";
 import { registerAction, signInWithGoogleAction } from "@/features/auth/actions";
+
+export const metadata: Metadata = {
+  title: "Crear cuenta",
+  description:
+    "Crea una cuenta en Sublimados Mike para guardar tus datos, favoritos y dar seguimiento a tus cotizaciones.",
+  alternates: {
+    canonical: "/register",
+  },
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default function RegisterPage() {
   return (

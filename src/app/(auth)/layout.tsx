@@ -8,9 +8,9 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           <span className="inline-flex rounded-full bg-[var(--primary-muted)] px-3 py-1 text-xs font-semibold text-[var(--primary)]">
             Sublimados Mike
           </span>
-          <h1 className="mt-5 text-5xl font-black leading-tight">
+          <p className="mt-5 text-5xl font-black leading-tight">
             Clientes, archivos y cotizaciones en un solo lugar.
-          </h1>
+          </p>
           <p className="mt-5 text-lg leading-8 text-[var(--muted-foreground)]">
             La cuenta del comprador permite guardar favoritos, datos de contacto e
             historial de pedidos personalizados.

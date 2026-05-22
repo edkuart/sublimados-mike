@@ -1,5 +1,6 @@
 import { BadgeDollarSign, Check, ChevronRight, Clock, Flame, Package2, Plus, ShieldCheck, Star, Truck } from "lucide-react";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/home/site-footer";
@@ -8,6 +9,10 @@ import type { ProductKind, ToneName } from "@/components/home/visuals";
 import { CatalogProductCard } from "@/components/catalog/catalog-product-card";
 import { ProductCustomizer } from "@/features/products/product-customizer";
 import { getProductDetail, getCatalogProducts } from "@/features/catalog/catalog-repository";
+
+type ProductDetailPageProps = {
+  params: Promise<{ slug: string }>;
+};
 
 const INFO_ROWS = [
   { icon: BadgeDollarSign, label: "Precio base", hint: "antes de cantidad y opciones" },
@@ -31,11 +36,41 @@ const FAQS = [
   },
 ];
 
+export async function generateMetadata({ params }: ProductDetailPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const product = await getProductDetail(slug);
+
+  if (!product) {
+    return {
+      title: "Producto no encontrado",
+    };
+  }
+
+  const description = `${product.description} Cotiza ${product.name.toLowerCase()} con precio estimado ${product.price} y prueba visual antes de imprimir.`;
+
+  return {
+    title: product.name,
+    description,
+    alternates: {
+      canonical: `/productos/${product.slug}`,
+    },
+    openGraph: {
+      type: "website",
+      title: product.name,
+      description,
+      url: `/productos/${product.slug}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: product.name,
+      description,
+    },
+  };
+}
+
 export default async function ProductDetailPage({
   params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+}: ProductDetailPageProps) {
   const { slug } = await params;
   const [product, allProducts] = await Promise.all([
     getProductDetail(slug),

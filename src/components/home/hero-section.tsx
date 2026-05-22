@@ -24,7 +24,7 @@ export function HeroSection() {
         aria-hidden="true"
         className="absolute inset-0 -z-10"
         style={{
-          background: "linear-gradient(135deg, #4c1d95 0%, #6f2dbd 50%, #a855f7 100%)",
+          background: "linear-gradient(135deg, #3D2462 0%, #6A4C93 50%, #9B72C8 100%)",
         }}
       />
       <div className="hero-pattern absolute inset-0 -z-10" aria-hidden="true" />
@@ -37,8 +37,8 @@ export function HeroSection() {
       />
       <BlobShape
         className="absolute -bottom-32 -left-24 -z-10 h-[380px] w-[380px]"
-        color="#14b8a6"
-        opacity={0.16}
+        color="#1982C4"
+        opacity={0.14}
       />
 
       <div className="mx-auto grid max-w-7xl gap-12 px-4 pb-28 pt-16 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:gap-10 lg:px-8 lg:pb-32 lg:pt-24">

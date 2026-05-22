@@ -115,10 +115,12 @@ async function main() {
       { name: "home-desktop", path: "/", width: 1440, height: 900 },
       { name: "home-mobile", path: "/", width: 390, height: 844, mobile: true },
       { name: "catalogo-desktop", path: "/catalogo", width: 1440, height: 900 },
+      { name: "categoria-desktop", path: "/categorias/tazas", width: 1440, height: 900 },
       { name: "producto-desktop", path: "/productos/taza-blanca-personalizada", width: 1440, height: 900 },
       { name: "producto-mobile", path: "/productos/taza-blanca-personalizada", width: 390, height: 844, mobile: true },
       { name: "politicas-desktop", path: "/politicas", width: 1440, height: 900 },
       { name: "login-mobile", path: "/login", width: 390, height: 844, mobile: true },
+      { name: "registro-mobile", path: "/register", width: 390, height: 844, mobile: true },
     ];
 
     for (const page of pages) {
@@ -231,6 +233,19 @@ async function inspectPage(client, page) {
       return {
         title: document.title,
         url: location.href,
+        metaDescription: document.querySelector('meta[name="description"]')?.content || "",
+        canonical: document.querySelector('link[rel="canonical"]')?.href || "",
+        ogTitle: document.querySelector('meta[property="og:title"]')?.content || "",
+        h1Count: document.querySelectorAll("h1").length,
+        navTiming: (() => {
+          const nav = performance.getEntriesByType("navigation")[0];
+          if (!nav) return null;
+          return {
+            domContentLoadedMs: Math.round(nav.domContentLoadedEventEnd),
+            loadMs: Math.round(nav.loadEventEnd),
+            transferSize: nav.transferSize || 0,
+          };
+        })(),
         hasHorizontalOverflow: document.documentElement.scrollWidth > window.innerWidth + 1,
         width: window.innerWidth,
         scrollWidth: document.documentElement.scrollWidth,
@@ -243,8 +258,13 @@ async function inspectPage(client, page) {
   const failures = [];
   if (!result.hasMain) failures.push(`${page.name}: no tiene <main>`);
   if (result.bodyTextLength < 100) failures.push(`${page.name}: contenido visible insuficiente`);
+  if (result.h1Count !== 1) failures.push(`${page.name}: debe tener exactamente 1 h1, tiene ${result.h1Count}`);
+  if (result.metaDescription.length < 70) failures.push(`${page.name}: meta description insuficiente`);
+  if (!result.canonical) failures.push(`${page.name}: falta canonical`);
+  if (!result.ogTitle) failures.push(`${page.name}: falta og:title`);
   if (result.hasHorizontalOverflow) failures.push(`${page.name}: overflow horizontal (${result.scrollWidth} > ${result.width})`);
   if (result.emptyHashLinks > 0) failures.push(`${page.name}: contiene ${result.emptyHashLinks} enlace(s) href="#"`);
+  if (result.navTiming?.loadMs > 10000) failures.push(`${page.name}: load event critico (${result.navTiming.loadMs} ms)`);
   return { name: page.name, result, failures };
 }
 

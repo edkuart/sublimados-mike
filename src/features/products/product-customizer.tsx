@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -28,6 +28,7 @@ import {
   validateClientQuoteDraft,
   type ClientQuoteDraft,
 } from "@/features/quotes/client-quote";
+import { trackCommerceEvent } from "@/lib/analytics/events";
 
 type SelectedOptions = Record<string, string>;
 type CustomizationValues = Record<string, string>;
@@ -68,6 +69,7 @@ export function ProductCustomizer({ product }: { product: ProductDetail }) {
   const [quoteErrors, setQuoteErrors] = useState<string[]>([]);
   const [lastQuoteNumber, setLastQuoteNumber] = useState<string | null>(null);
   const [policiesAccepted, setPoliciesAccepted] = useState(false);
+  const quoteStartedTracked = useRef(false);
 
   const toneName = (product.imageTone ?? "purple") as ToneName;
   const tone = SM_TONES[toneName];
@@ -91,6 +93,19 @@ export function ProductCustomizer({ product }: { product: ProductDetail }) {
     setCustomer((c) => ({ ...c, [field]: value }));
   }
 
+  function trackQuoteStarted() {
+    if (quoteStartedTracked.current) return;
+    quoteStartedTracked.current = true;
+    trackCommerceEvent({
+      name: "quote_started",
+      source: "product_customizer",
+      productSlug: product.slug,
+      productName: product.name,
+      category: product.category,
+      quantity,
+    });
+  }
+
   function prepareWhatsAppQuote() {
     const draft: ClientQuoteDraft = {
       productName: product.name,
@@ -108,6 +123,15 @@ export function ProductCustomizer({ product }: { product: ProductDetail }) {
     if (errors.length > 0) return;
     const result = buildClientQuoteWhatsAppUrl(draft);
     setLastQuoteNumber(result.quoteNumber);
+    trackCommerceEvent({
+      name: "quote_whatsapp_opened",
+      source: "product_customizer",
+      productSlug: product.slug,
+      productName: product.name,
+      category: product.category,
+      quantity,
+      quoteNumber: result.quoteNumber,
+    });
     window.open(result.url, "_blank", "noopener,noreferrer");
   }
 
@@ -255,12 +279,14 @@ export function ProductCustomizer({ product }: { product: ProductDetail }) {
             label="Nombre completo"
             value={customer.name}
             onChange={(v) => updateCustomer("name", v)}
+            onFocus={trackQuoteStarted}
             placeholder="Tu nombre"
           />
           <ContactField
             label="Teléfono"
             value={customer.phone}
             onChange={(v) => updateCustomer("phone", v)}
+            onFocus={trackQuoteStarted}
             placeholder="+502 5000-0000"
             icon={Phone}
           />
@@ -268,6 +294,7 @@ export function ProductCustomizer({ product }: { product: ProductDetail }) {
             label="Ciudad / Zona"
             value={customer.location}
             onChange={(v) => updateCustomer("location", v)}
+            onFocus={trackQuoteStarted}
             placeholder="Zona 10, Guatemala"
             icon={MapPin}
           />
@@ -278,6 +305,7 @@ export function ProductCustomizer({ product }: { product: ProductDetail }) {
             <input
               value={customer.notes.split("|")[0] ?? ""}
               onChange={(e) => updateCustomer("notes", e.target.value)}
+              onFocus={trackQuoteStarted}
               placeholder="Colonia, residencial…"
               className="mt-1 w-full rounded-xl border border-[var(--border)] bg-white px-3 py-2.5 text-[13px] font-semibold outline-none transition-colors focus:border-[var(--primary)]"
             />
@@ -550,12 +578,14 @@ function ContactField({
   label,
   value,
   onChange,
+  onFocus,
   placeholder,
   icon: Icon,
 }: {
   label: string;
   value: string;
   onChange: (v: string) => void;
+  onFocus?: () => void;
   placeholder: string;
   icon?: LucideIcon;
 }) {
@@ -567,6 +597,7 @@ function ContactField({
         <input
           value={value}
           onChange={(e) => onChange(e.target.value)}
+          onFocus={onFocus}
           placeholder={placeholder}
           className="w-full bg-transparent text-[13px] font-semibold outline-none"
         />

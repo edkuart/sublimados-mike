@@ -16,13 +16,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!policy) {
     return {
-      title: "Politica no encontrada | Sublimados Mike",
+      title: "Politica no encontrada",
     };
   }
 
   return {
-    title: `${policy.title} | Sublimados Mike`,
+    title: policy.title,
     description: policy.summary,
+    alternates: {
+      canonical: `/politicas/${policy.slug}`,
+    },
+    openGraph: {
+      title: policy.title,
+      description: policy.summary,
+      url: `/politicas/${policy.slug}`,
+    },
   };
 }
 

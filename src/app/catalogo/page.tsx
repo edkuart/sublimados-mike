@@ -1,5 +1,6 @@
 import { ArrowDownUp, ChevronLeft, ChevronRight, Grid3x3, List, Search, X } from "lucide-react";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/home/site-footer";
 import { FilterSidebar } from "@/components/catalog/filter-sidebar";
@@ -7,6 +8,21 @@ import { CatalogProductCard } from "@/components/catalog/catalog-product-card";
 import { getCatalogCategories, getCatalogProducts } from "@/features/catalog/catalog-repository";
 
 const ACTIVE_FILTERS = ["Tazas", "Termos", "Almohadas", "24 horas"];
+
+export const metadata: Metadata = {
+  title: "Catalogo de productos personalizados",
+  description:
+    "Explora tazas, playeras, termos, cojines, llaveros y regalos personalizados por sublimacion con cotizacion por WhatsApp.",
+  alternates: {
+    canonical: "/catalogo",
+  },
+  openGraph: {
+    title: "Catalogo de Sublimados Mike",
+    description:
+      "Productos sublimados y personalizados con prueba visual antes de imprimir.",
+    url: "/catalogo",
+  },
+};
 
 export default async function CatalogPage() {
   const [categories, products] = await Promise.all([getCatalogCategories(), getCatalogProducts()]);

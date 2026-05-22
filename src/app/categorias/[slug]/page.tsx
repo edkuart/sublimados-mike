@@ -1,5 +1,6 @@
 import { ArrowDownUp, ChevronRight, Clock, ShieldCheck, Star } from "lucide-react";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/home/site-footer";
@@ -9,11 +10,40 @@ import { FilterSidebar } from "@/components/catalog/filter-sidebar";
 import { CatalogProductCard } from "@/components/catalog/catalog-product-card";
 import { getCatalogCategories, getCatalogProducts } from "@/features/catalog/catalog-repository";
 
+type CategoryPageProps = {
+  params: Promise<{ slug: string }>;
+};
+
+export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const categories = await getCatalogCategories();
+  const category = categories.find((item) => item.slug === slug);
+
+  if (!category) {
+    return {
+      title: "Categoria no encontrada",
+    };
+  }
+
+  const description = `${category.description}. Productos personalizados por sublimacion con cotizacion guiada por WhatsApp.`;
+
+  return {
+    title: category.name,
+    description,
+    alternates: {
+      canonical: `/categorias/${category.slug}`,
+    },
+    openGraph: {
+      title: `${category.name} personalizados por sublimacion`,
+      description,
+      url: `/categorias/${category.slug}`,
+    },
+  };
+}
+
 export default async function CategoryPage({
   params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+}: CategoryPageProps) {
   const { slug } = await params;
   const [categories, products] = await Promise.all([
     getCatalogCategories(),

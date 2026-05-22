@@ -8,11 +8,11 @@ export interface ToneConfig {
 }
 
 export const SM_TONES: Record<ToneName, ToneConfig> = {
-  purple: { from: "#a855f7", to: "#6f2dbd", surface: "#efe4ff", ink: "#5b21a1" },
-  teal:   { from: "#5eead4", to: "#0f766e", surface: "#dffcf7", ink: "#0f766e" },
-  coral:  { from: "#fb7185", to: "#c2415d", surface: "#ffe4eb", ink: "#9f1239" },
-  gold:   { from: "#fbbf24", to: "#d97706", surface: "#fef3c7", ink: "#b45309" },
-  ink:    { from: "#475569", to: "#1e293b", surface: "#edf0f5", ink: "#1e293b" },
+  purple: { from: "#9B72C8", to: "#6A4C93", surface: "#EDE4F5", ink: "#55387A" },
+  teal:   { from: "#B5E05A", to: "#8AC926", surface: "#EDFAD0", ink: "#5A8216" },
+  coral:  { from: "#FF8589", to: "#FF595E", surface: "#FFE8E9", ink: "#CC2F34" },
+  gold:   { from: "#FFD870", to: "#FFCA3A", surface: "#FFF6D0", ink: "#C49000" },
+  ink:    { from: "#5B7A9D", to: "#1982C4", surface: "#D6EBFA", ink: "#1266A0" },
 };
 
 export type ProductKind = "mug" | "shirt" | "thermos" | "pillow" | "keychain" | "gift";

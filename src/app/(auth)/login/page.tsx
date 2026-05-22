@@ -1,6 +1,20 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { AuthForm } from "@/features/auth/auth-form";
 import { loginAction, signInWithGoogleAction } from "@/features/auth/actions";
+
+export const metadata: Metadata = {
+  title: "Iniciar sesion",
+  description:
+    "Accede a tu cuenta de Sublimados Mike para consultar historial, favoritos y cotizaciones personalizadas.",
+  alternates: {
+    canonical: "/login",
+  },
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default function LoginPage() {
   return (

@@ -6,8 +6,16 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { policyPages } from "@/features/policies/policy-content";
 
 export const metadata: Metadata = {
-  title: "Politicas | Sublimados Mike",
+  title: "Politicas",
   description: "Politicas de cotizacion, privacidad, archivos, envios y productos personalizados.",
+  alternates: {
+    canonical: "/politicas",
+  },
+  openGraph: {
+    title: "Politicas de Sublimados Mike",
+    description: "Politicas de cotizacion, privacidad, archivos, envios y productos personalizados.",
+    url: "/politicas",
+  },
 };
 
 export default function PoliciesPage() {

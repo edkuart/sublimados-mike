@@ -45,6 +45,43 @@ const checks = [
     expectedStatuses: [200],
   },
   {
+    name: "Robots SEO",
+    path: "/robots.txt",
+    expectedStatuses: [200],
+  },
+  {
+    name: "Sitemap SEO",
+    path: "/sitemap.xml",
+    expectedStatuses: [200],
+  },
+  {
+    name: "Analytics evento comercio",
+    path: "/api/analytics/events",
+    method: "POST",
+    body: JSON.stringify({
+      name: "quote_whatsapp_opened",
+      source: "qa-smoke",
+      productSlug: "taza-blanca-personalizada",
+      quantity: 1,
+    }),
+    headers: { "content-type": "application/json" },
+    expectedStatuses: [200],
+  },
+  {
+    name: "Analytics web vitals",
+    path: "/api/analytics/web-vitals",
+    method: "POST",
+    body: JSON.stringify({
+      id: "qa-smoke",
+      name: "LCP",
+      value: 1200,
+      rating: "good",
+      navigationType: "navigate",
+    }),
+    headers: { "content-type": "application/json" },
+    expectedStatuses: [200],
+  },
+  {
     name: "Cuenta protegida",
     path: "/account",
     expectedStatuses: [302, 303, 307, 308],
