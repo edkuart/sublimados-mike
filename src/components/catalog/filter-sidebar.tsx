@@ -21,8 +21,8 @@ interface FilterSidebarProps {
 
 export function FilterSidebar({ categories, activeCategory }: FilterSidebarProps) {
   return (
-    <aside className="sticky top-[76px] w-[260px] shrink-0 self-start">
-      <div className="overflow-hidden rounded-2xl border border-[var(--border)] bg-white shadow-card">
+    <aside className="w-full self-start md:sticky md:top-[76px] md:w-[260px] md:shrink-0">
+      <div className="overflow-hidden rounded-none border-0 bg-white md:rounded-2xl md:border md:border-[var(--border)] md:shadow-card">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-[var(--border)] px-4 py-3">
           <div className="flex items-center gap-2">
