@@ -1,4 +1,4 @@
-# Instrucciones del proyecto Sublimados Mike
+# Instrucciones del proyecto Dinamiqo
 
 ## Estado
 

@@ -6,7 +6,7 @@ import { registerAction, signInWithGoogleAction } from "@/features/auth/actions"
 export const metadata: Metadata = {
   title: "Crear cuenta",
   description:
-    "Crea una cuenta en Sublimados Mike para guardar tus datos, favoritos y dar seguimiento a tus cotizaciones.",
+    "Crea una cuenta en Dinamiqo para guardar tus datos, favoritos y dar seguimiento a tus cotizaciones.",
   alternates: {
     canonical: "/register",
   },

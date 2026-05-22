@@ -6,7 +6,7 @@ import { loginAction, signInWithGoogleAction } from "@/features/auth/actions";
 export const metadata: Metadata = {
   title: "Iniciar sesion",
   description:
-    "Accede a tu cuenta de Sublimados Mike para consultar historial, favoritos y cotizaciones personalizadas.",
+    "Accede a tu cuenta de Dinamiqo para consultar historial, favoritos y cotizaciones personalizadas.",
   alternates: {
     canonical: "/login",
   },

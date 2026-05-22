@@ -2,7 +2,7 @@
 
 ## Alcance
 
-Se ejecuto una optimizacion tecnica, visual y funcional del proyecto Sublimados Mike antes
+Se ejecuto una optimizacion tecnica, visual y funcional del proyecto Dinamiqo antes
 de avanzar a futuras integraciones. El enfoque fue mejorar SEO, rendimiento percibido,
 analitica inicial, accesibilidad y confianza del flujo de cotizacion por WhatsApp.
 

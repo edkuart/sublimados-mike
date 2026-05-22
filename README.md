@@ -1,4 +1,4 @@
-# Sublimados Mike
+# Dinamiqo
 
 E-commerce profesional para productos personalizados por sublimacion: tazas, playeras,
 termos, gorras, llaveros, cojines, regalos personalizados, decoracion y productos

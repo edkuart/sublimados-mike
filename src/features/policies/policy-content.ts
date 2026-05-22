@@ -32,7 +32,7 @@ export const policyPages: PolicyPageContent[] = [
     sections: [
       {
         heading: "Naturaleza de la cotizacion",
-        body: "El sitio permite preparar una solicitud de cotizacion y enviarla por WhatsApp. El envio del formulario no constituye una compra pagada ni una orden final hasta que Sublimados Mike confirme precio, disponibilidad, tiempos y detalles por WhatsApp.",
+        body: "El sitio permite preparar una solicitud de cotizacion y enviarla por WhatsApp. El envio del formulario no constituye una compra pagada ni una orden final hasta que Dinamiqo confirme precio, disponibilidad, tiempos y detalles por WhatsApp.",
       },
       {
         heading: "Productos personalizados",
@@ -83,7 +83,7 @@ export const policyPages: PolicyPageContent[] = [
       },
       {
         heading: "Calidad de impresion",
-        body: "La calidad final depende de la resolucion y nitidez del archivo enviado. Si un archivo no es apto para sublimacion, Sublimados Mike puede solicitar una version mejor antes de producir.",
+        body: "La calidad final depende de la resolucion y nitidez del archivo enviado. Si un archivo no es apto para sublimacion, Dinamiqo puede solicitar una version mejor antes de producir.",
       },
       {
         heading: "Privacidad de archivos",
@@ -125,7 +125,7 @@ export const policyPages: PolicyPageContent[] = [
       },
       {
         heading: "Errores de produccion",
-        body: "Si existe un error atribuible a Sublimados Mike frente a la prueba aprobada, se revisara el caso para corregir, reimprimir o acordar una solucion.",
+        body: "Si existe un error atribuible a Dinamiqo frente a la prueba aprobada, se revisara el caso para corregir, reimprimir o acordar una solucion.",
       },
       {
         heading: "Reclamos",
@@ -142,7 +142,7 @@ export const policyPages: PolicyPageContent[] = [
     sections: [
       {
         heading: "Prueba visual",
-        body: "Para productos que lo requieran, Sublimados Mike envia una prueba visual antes de producir. La produccion inicia solo despues de recibir aprobacion del cliente.",
+        body: "Para productos que lo requieran, Dinamiqo envia una prueba visual antes de producir. La produccion inicia solo despues de recibir aprobacion del cliente.",
       },
       {
         heading: "Cambios",

@@ -8,7 +8,7 @@ const FOOTER_COLS = [
       { label: "Nosotros",             href: "#nosotros" },
       { label: "Cómo trabajamos",      href: "#nosotros" },
       { label: "Guía de diseño",       href: "/politicas/aprobacion-diseno" },
-      { label: "Contacto comercial",   href: "mailto:hola@sublimadosmike.gt" },
+      { label: "Contacto comercial",   href: "mailto:hola@dinamiqo.gt" },
     ],
   },
   {
@@ -44,7 +44,7 @@ const FOOTER_COLS = [
 
 const SOCIALS = [
   { name: "WhatsApp",  icon: MessageCircle, href: "https://wa.me/50243218800" },
-  { name: "Email",     icon: AtSign,        href: "mailto:hola@sublimadosmike.gt" },
+  { name: "Email",     icon: AtSign,        href: "mailto:hola@dinamiqo.gt" },
 ];
 
 export function SiteFooter() {
@@ -72,7 +72,7 @@ export function SiteFooter() {
                 <Sparkles size={22} aria-hidden="true" />
               </span>
               <div>
-                <p className="text-[16px] font-extrabold leading-tight">Sublimados Mike</p>
+                <p className="text-[16px] font-extrabold leading-tight">Dinamiqo</p>
                 <p className="text-[11.5px] text-white/55">Personalizados premium · GT</p>
               </div>
             </div>
@@ -96,8 +96,8 @@ export function SiteFooter() {
                 <span className="grid h-8 w-8 place-items-center rounded-lg bg-white/10 text-[var(--primary-soft)]">
                   <Mail size={15} aria-hidden="true" />
                 </span>
-                <a href="mailto:hola@sublimadosmike.gt" className="font-semibold hover:text-white">
-                  hola@sublimadosmike.gt
+                <a href="mailto:hola@dinamiqo.gt" className="font-semibold hover:text-white">
+                  hola@dinamiqo.gt
                 </a>
               </div>
               <div className="flex items-center gap-3">
@@ -165,7 +165,7 @@ export function SiteFooter() {
         {/* Bottom bar */}
         <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-6 sm:flex-row sm:items-center">
           <p className="text-[12px] text-white/55">
-            © 2026 Sublimados Mike. Todos los derechos reservados.
+            © 2026 Dinamiqo. Todos los derechos reservados.
           </p>
           <div className="flex items-center gap-4 text-[12px] text-white/60">
             <span className="inline-flex items-center gap-1.5">

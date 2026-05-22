@@ -1,8 +1,8 @@
-# PRD - Sublimados Mike
+# PRD - Dinamiqo
 
 ## Vision
 
-Sublimados Mike sera una plataforma de comercio y cotizacion para productos
+Dinamiqo sera una plataforma de comercio y cotizacion para productos
 personalizados por sublimacion, enfocada en una experiencia confiable, visual y facil de
 usar. El objetivo inicial no es automatizar todo el proceso de venta, sino ordenar el
 catalogo, capturar correctamente los datos del cliente y cerrar la conversacion comercial

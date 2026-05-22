@@ -57,7 +57,7 @@ const policies = [
     slug: "privacidad",
     title: "Politica de privacidad",
     content:
-      "Sublimados Mike protege los datos y archivos del cliente. Las imagenes subidas se usan solo para preparar la cotizacion y producir el pedido aprobado.",
+      "Dinamiqo protege los datos y archivos del cliente. Las imagenes subidas se usan solo para preparar la cotizacion y producir el pedido aprobado.",
   },
   {
     slug: "envios",

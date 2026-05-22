@@ -6,7 +6,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       <section className="hidden items-center justify-center lg:flex">
         <div className="max-w-xl">
           <span className="inline-flex rounded-full bg-[var(--primary-muted)] px-3 py-1 text-xs font-semibold text-[var(--primary)]">
-            Sublimados Mike
+            Dinamiqo
           </span>
           <p className="mt-5 text-5xl font-black leading-tight">
             Clientes, archivos y cotizaciones en un solo lugar.

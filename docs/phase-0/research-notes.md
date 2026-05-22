@@ -30,7 +30,7 @@
 - Baymard - Ecommerce UX: https://baymard.com/learn/ecommerce-ux-best-practices
 - DIACO Guatemala - Internet: https://diaco.gob.gt/internet/
 
-## Implicaciones para Sublimados Mike
+## Implicaciones para Dinamiqo
 
 - El primer entregable tecnico debe priorizar catalogo configurable, cotizacion
   persistida, subida segura y flujo WhatsApp.

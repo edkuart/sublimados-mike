@@ -59,8 +59,8 @@ export const adminProductRows = [
 
 export const adminUserRows = [
   { name: "Mariana Reyes", email: "mariana@example.com", role: "Comprador", orders: 3 },
-  { name: "Mike Admin", email: "admin@sublimadosmike.gt", role: "Administrador", orders: 0 },
-  { name: "Equipo Diseno", email: "diseno@sublimadosmike.gt", role: "Diseno", orders: 0 },
+  { name: "Mike Admin", email: "admin@dinamiqo.gt", role: "Administrador", orders: 0 },
+  { name: "Equipo Diseno", email: "diseno@dinamiqo.gt", role: "Diseno", orders: 0 },
 ];
 
 export const adminContentCards = [

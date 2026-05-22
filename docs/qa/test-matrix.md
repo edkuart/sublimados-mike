@@ -1,4 +1,4 @@
-# Matriz QA - Sublimados Mike
+# Matriz QA - Dinamiqo
 
 ## Objetivo
 

@@ -1,4 +1,4 @@
-# Plan de Deploy Profesional - Sublimados Mike
+# Plan de Deploy Profesional - Dinamiqo
 
 ## Estrategia recomendada
 
@@ -30,7 +30,7 @@ npm run deploy:check
 Con staging activo:
 
 ```bash
-QA_BASE_URL=https://staging.sublimadosmike.gt npm run qa:smoke
+QA_BASE_URL=https://staging.dinamiqo.gt npm run qa:smoke
 ```
 
 ## Variables requeridas en produccion

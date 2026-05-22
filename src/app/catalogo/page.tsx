@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     canonical: "/catalogo",
   },
   openGraph: {
-    title: "Catalogo de Sublimados Mike",
+    title: "Catalogo de Dinamiqo",
     description:
       "Productos sublimados y personalizados con prueba visual antes de imprimir.",
     url: "/catalogo",

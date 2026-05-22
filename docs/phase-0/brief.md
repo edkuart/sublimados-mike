@@ -2,13 +2,13 @@
 
 ## Objetivo
 
-Definir la base profesional de "Sublimados Mike" antes de escribir codigo: propuesta de
+Definir la base profesional de "Dinamiqo" antes de escribir codigo: propuesta de
 valor, alcance funcional, arquitectura tecnica, modelo de datos, riesgos, politicas,
 flujos y roadmap de construccion.
 
 ## Resumen ejecutivo
 
-Sublimados Mike debe construirse como una plataforma de cotizacion y pedidos
+Dinamiqo debe construirse como una plataforma de cotizacion y pedidos
 personalizados, no solamente como una tienda con carrito tradicional. El cierre comercial
 inicial sera por WhatsApp, pero cada cotizacion debe quedar registrada en el sistema para
 dar seguimiento, consultar historial, controlar estados y administrar produccion.

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     canonical: "/politicas",
   },
   openGraph: {
-    title: "Politicas de Sublimados Mike",
+    title: "Politicas de Dinamiqo",
     description: "Politicas de cotizacion, privacidad, archivos, envios y productos personalizados.",
     url: "/politicas",
   },

@@ -52,7 +52,7 @@ export function SiteHeader() {
             </span>
             <span className="min-w-0 leading-tight">
               <span className="block text-[15px] font-extrabold tracking-tight">
-                Sublimados Mike
+                Dinamiqo
               </span>
               <span className="block text-[11px] font-medium text-[var(--muted-foreground)]">
                 Personalizados premium · GT

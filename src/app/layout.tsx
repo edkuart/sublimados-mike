@@ -20,12 +20,12 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(appUrl),
   title: {
-    default: "Sublimados Mike",
-    template: "%s | Sublimados Mike",
+    default: "Dinamiqo",
+    template: "%s | Dinamiqo",
   },
   description:
     "Productos personalizados por sublimacion en Guatemala: tazas, playeras, termos, cojines, llaveros y regalos con cotizacion por WhatsApp.",
-  applicationName: "Sublimados Mike",
+  applicationName: "Dinamiqo",
   alternates: {
     canonical: "/",
   },
@@ -33,14 +33,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_GT",
     url: "/",
-    siteName: "Sublimados Mike",
-    title: "Sublimados Mike",
+    siteName: "Dinamiqo",
+    title: "Dinamiqo",
     description:
       "Cotiza productos personalizados por sublimacion con prueba visual antes de imprimir.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sublimados Mike",
+    title: "Dinamiqo",
     description:
       "Cotiza regalos y productos personalizados por WhatsApp con una experiencia guiada.",
   },
