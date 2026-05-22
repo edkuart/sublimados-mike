@@ -1,0 +1,416 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum RoleName {
+  CUSTOMER
+  ADMIN
+  SUPER_ADMIN
+  DESIGNER
+  PRODUCTION
+}
+
+enum ProductStatus {
+  DRAFT
+  ACTIVE
+  ARCHIVED
+}
+
+enum QuoteStatus {
+  DRAFT
+  READY_TO_SEND
+  SENT_TO_WHATSAPP
+  EXPIRED
+}
+
+enum OrderStatus {
+  CONTACT_PENDING
+  DESIGN_PENDING
+  DESIGN_SENT
+  DESIGN_APPROVED
+  IN_PRODUCTION
+  READY
+  DELIVERED
+  CANCELLED
+}
+
+enum FileStatus {
+  UPLOADED
+  VALIDATED
+  REJECTED
+  ARCHIVED
+}
+
+enum CustomizationFieldType {
+  TEXT
+  TEXTAREA
+  IMAGE
+  LOGO
+  FILE
+  SELECT
+  COLOR
+  DATE
+}
+
+model User {
+  id        String         @id @default(cuid())
+  authUserId String?       @unique
+  email     String         @unique
+  isActive  Boolean        @default(true)
+  lastLoginAt DateTime?
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  profile   Profile?
+  roles     UserRole[]
+  favorites Favorite[]
+  quotes    Quote[]
+  orders    Order[]
+  files     UploadedFile[]
+  auditLogs AuditLog[]
+}
+
+model Profile {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  fullName  String
+  phone     String?
+  city      String?
+  address   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Role {
+  id          String     @id @default(cuid())
+  name        RoleName   @unique
+  description String?
+  users       UserRole[]
+}
+
+model UserRole {
+  userId String
+  roleId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role   Role   @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@id([userId, roleId])
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  isActive    Boolean   @default(true)
+  sortOrder   Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  products    Product[]
+
+  @@index([isActive, sortOrder])
+}
+
+model Product {
+  id                  String               @id @default(cuid())
+  categoryId          String
+  name                String
+  slug                String               @unique
+  shortDescription    String?
+  description         String?
+  basePriceCents      Int
+  currency            String               @default("GTQ")
+  productionTimeLabel String?
+  status              ProductStatus        @default(DRAFT)
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  category            Category             @relation(fields: [categoryId], references: [id])
+  images              ProductImage[]
+  options             ProductOption[]
+  variants            ProductVariant[]
+  customizationFields CustomizationField[]
+  favorites           Favorite[]
+  quoteItems          QuoteItem[]
+  orderItems          OrderItem[]
+
+  @@index([categoryId, status])
+  @@index([status, createdAt])
+}
+
+model ProductImage {
+  id        String  @id @default(cuid())
+  productId String
+  url       String
+  altText   String?
+  isPrimary Boolean @default(false)
+  sortOrder Int     @default(0)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId, isPrimary, sortOrder])
+}
+
+model ProductOption {
+  id        String               @id @default(cuid())
+  productId String
+  name      String
+  sortOrder Int                  @default(0)
+  product   Product              @relation(fields: [productId], references: [id], onDelete: Cascade)
+  values    ProductOptionValue[]
+
+  @@index([productId, sortOrder])
+}
+
+model ProductOptionValue {
+  id              String                @id @default(cuid())
+  productOptionId String
+  value           String
+  colorHex        String?
+  sortOrder       Int                   @default(0)
+  option          ProductOption         @relation(fields: [productOptionId], references: [id], onDelete: Cascade)
+  variantValues   ProductVariantValue[]
+}
+
+model ProductVariant {
+  id                   String                @id @default(cuid())
+  productId            String
+  sku                  String?               @unique
+  label                String?
+  priceAdjustmentCents Int                   @default(0)
+  stockQuantity        Int?
+  isActive             Boolean               @default(true)
+  product              Product               @relation(fields: [productId], references: [id], onDelete: Cascade)
+  values               ProductVariantValue[]
+  quoteItems           QuoteItem[]
+  orderItems           OrderItem[]
+
+  @@index([productId, isActive])
+}
+
+model ProductVariantValue {
+  variantId String
+  valueId   String
+  variant   ProductVariant     @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  value     ProductOptionValue @relation(fields: [valueId], references: [id], onDelete: Cascade)
+
+  @@id([variantId, valueId])
+}
+
+model CustomizationField {
+  id          String                     @id @default(cuid())
+  productId   String
+  label       String
+  type        CustomizationFieldType
+  helperText  String?
+  isRequired  Boolean                    @default(false)
+  sortOrder   Int                        @default(0)
+  product     Product                    @relation(fields: [productId], references: [id], onDelete: Cascade)
+  options     CustomizationFieldOption[]
+  quoteValues QuoteItemCustomization[]
+
+  @@index([productId, sortOrder])
+}
+
+model CustomizationFieldOption {
+  id                   String             @id @default(cuid())
+  customizationFieldId String
+  label                String
+  value                String
+  sortOrder            Int                @default(0)
+  customizationField   CustomizationField @relation(fields: [customizationFieldId], references: [id], onDelete: Cascade)
+}
+
+model Favorite {
+  userId    String
+  productId String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@id([userId, productId])
+}
+
+model Quote {
+  id                  String         @id @default(cuid())
+  quoteNumber         String         @unique
+  userId              String?
+  customerName        String
+  customerEmail       String?
+  customerPhone       String
+  status              QuoteStatus    @default(DRAFT)
+  estimatedTotalCents Int?
+  currency            String         @default("GTQ")
+  deliveryMethod      String?
+  deliveryLocation    String?
+  notes               String?
+  policiesAcceptedAt  DateTime?
+  sentToWhatsappAt    DateTime?
+  createdAt           DateTime       @default(now())
+  updatedAt           DateTime       @updatedAt
+  user                User?          @relation(fields: [userId], references: [id])
+  items               QuoteItem[]
+  files               UploadedFile[]
+  order               Order?
+
+  @@index([userId, createdAt])
+  @@index([status, createdAt])
+  @@index([customerPhone])
+}
+
+model QuoteItem {
+  id                 String                   @id @default(cuid())
+  quoteId            String
+  productId          String
+  productVariantId   String?
+  quantity           Int
+  unitEstimatedCents Int?
+  quote              Quote                    @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  product            Product                  @relation(fields: [productId], references: [id])
+  productVariant     ProductVariant?          @relation(fields: [productVariantId], references: [id])
+  customizations     QuoteItemCustomization[]
+
+  @@index([quoteId])
+  @@index([productId])
+}
+
+model QuoteItemCustomization {
+  id                   String             @id @default(cuid())
+  quoteItemId          String
+  customizationFieldId String
+  value                String
+  quoteItem            QuoteItem          @relation(fields: [quoteItemId], references: [id], onDelete: Cascade)
+  customizationField   CustomizationField @relation(fields: [customizationFieldId], references: [id])
+}
+
+model Order {
+  id                  String               @id @default(cuid())
+  orderNumber         String               @unique
+  quoteId             String?              @unique
+  userId              String?
+  status              OrderStatus          @default(CONTACT_PENDING)
+  estimatedTotalCents Int?
+  finalTotalCents     Int?
+  currency            String               @default("GTQ")
+  internalNotes       String?
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  quote               Quote?               @relation(fields: [quoteId], references: [id])
+  user                User?                @relation(fields: [userId], references: [id])
+  items               OrderItem[]
+  statusHistory       OrderStatusHistory[]
+  designProofs        DesignProof[]
+
+  @@index([userId, createdAt])
+  @@index([status, createdAt])
+}
+
+model OrderItem {
+  id               String          @id @default(cuid())
+  orderId          String
+  productId        String
+  productVariantId String?
+  quantity         Int
+  unitPriceCents   Int?
+  order            Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product          Product         @relation(fields: [productId], references: [id])
+  productVariant   ProductVariant? @relation(fields: [productVariantId], references: [id])
+}
+
+model OrderStatusHistory {
+  id        String      @id @default(cuid())
+  orderId   String
+  status    OrderStatus
+  note      String?
+  createdAt DateTime    @default(now())
+  order     Order       @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId, createdAt])
+}
+
+model UploadedFile {
+  id         String        @id @default(cuid())
+  userId     String?
+  quoteId    String?
+  storageKey String        @unique
+  fileName   String
+  mimeType   String
+  sizeBytes  Int
+  status     FileStatus    @default(UPLOADED)
+  createdAt  DateTime      @default(now())
+  user       User?         @relation(fields: [userId], references: [id])
+  quote      Quote?        @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  proofs     DesignProof[]
+
+  @@index([userId, createdAt])
+  @@index([quoteId, createdAt])
+  @@index([status, createdAt])
+}
+
+model DesignProof {
+  id             String       @id @default(cuid())
+  orderId        String
+  uploadedFileId String
+  version        Int
+  isApproved     Boolean      @default(false)
+  approvedAt     DateTime?
+  notes          String?
+  createdAt      DateTime     @default(now())
+  order          Order        @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  uploadedFile   UploadedFile @relation(fields: [uploadedFileId], references: [id])
+
+  @@unique([orderId, version])
+}
+
+model PolicyPage {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     String
+  content   String
+  isActive  Boolean  @default(true)
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model Banner {
+  id        String   @id @default(cuid())
+  title     String
+  subtitle  String?
+  imageUrl  String?
+  href      String?
+  placement String
+  isActive  Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([placement, isActive, sortOrder])
+}
+
+model Setting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  actorId   String?
+  action    String
+  entity    String
+  entityId  String?
+  metadata  Json?
+  createdAt DateTime @default(now())
+  actor     User?    @relation(fields: [actorId], references: [id])
+
+  @@index([actorId, createdAt])
+  @@index([entity, entityId])
+}
